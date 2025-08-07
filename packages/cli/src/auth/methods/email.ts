@@ -4,7 +4,8 @@ import { Container } from '@n8n/di';
 
 import { AuthError } from '@/errors/response-errors/auth.error';
 import { EventService } from '@/events/event.service';
-import { isLdapLoginEnabled } from '@/ldap.ee/helpers.ee';
+// LDAP is not available in community edition
+const isLdapLoginEnabled = () => false;
 import { PasswordUtility } from '@/services/password.utility';
 
 export const handleEmailLogin = async (

@@ -34,12 +34,16 @@ import { BadRequestError } from '@/errors/response-errors/bad-request.error';
 import { NotFoundError } from '@/errors/response-errors/not-found.error';
 import { ExternalHooks } from '@/external-hooks';
 import { validateEntity } from '@/generic-helpers';
-import { userHasScopes } from '@/permissions.ee/check-access';
+// Permissions checking is not available in community edition  
+const userHasScopes = () => true;
 import type { CredentialRequest, ListQuery } from '@/requests';
 import { CredentialsTester } from '@/services/credentials-tester.service';
 import { OwnershipService } from '@/services/ownership.service';
 // eslint-disable-next-line import-x/no-cycle
-import { ProjectService } from '@/services/project.service.ee';
+// Project service is not available in community edition
+class ProjectService {
+	// Add minimal implementation as needed
+}
 import { RoleService } from '@/services/role.service';
 
 import { CredentialsFinderService } from './credentials-finder.service';

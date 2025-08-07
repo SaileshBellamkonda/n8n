@@ -44,7 +44,23 @@ import * as utils from '@/utils';
 
 import { CredentialsFinderService } from './credentials-finder.service';
 import { CredentialsService } from './credentials.service';
-import { EnterpriseCredentialsService } from './credentials.service.ee';
+// Enterprise credentials service is not available in community edition
+class EnterpriseCredentialsService {
+	async getOne(user: any, credentialId: string, decrypt?: boolean) {
+		// Fall back to basic credential service
+		throw new Error('Enterprise credentials features not available');
+	}
+	
+	async shareWithProjects(user: any, credentialId: string, projectIds: string[], trx?: any) {
+		// Sharing not available in community edition
+		throw new Error('Credential sharing not available in community edition');
+	}
+	
+	async transferOne(user: any, credentialId: string, destinationProjectId: string) {
+		// Transfer not available in community edition  
+		throw new Error('Credential transfer not available in community edition');
+	}
+}
 
 @RestController('/credentials')
 export class CredentialsController {

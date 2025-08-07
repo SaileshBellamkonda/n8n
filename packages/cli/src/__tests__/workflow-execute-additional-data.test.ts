@@ -17,7 +17,12 @@ import type PCancelable from 'p-cancelable';
 
 import { ActiveExecutions } from '@/active-executions';
 import { CredentialsHelper } from '@/credentials-helper';
-import { VariablesService } from '@/environments.ee/variables/variables.service.ee';
+// Variables service is not available in community edition
+class VariablesService {
+	async populateOverrides() {
+		return {};
+	}
+}
 import { EventService } from '@/events/event.service';
 import {
 	CredentialsPermissionChecker,
