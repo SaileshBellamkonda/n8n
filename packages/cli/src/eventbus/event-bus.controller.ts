@@ -11,16 +11,13 @@ import { BadRequestError } from '@/errors/response-errors/bad-request.error';
 
 import { eventNamesAll } from './event-message-classes';
 import { MessageEventBus } from './message-event-bus/message-event-bus';
-import {
-	isMessageEventBusDestinationSentryOptions,
-	MessageEventBusDestinationSentry,
-} from './message-event-bus-destination/message-event-bus-destination-sentry.ee';
-import {
-	isMessageEventBusDestinationSyslogOptions,
-	MessageEventBusDestinationSyslog,
-} from './message-event-bus-destination/message-event-bus-destination-syslog.ee';
-import { MessageEventBusDestinationWebhook } from './message-event-bus-destination/message-event-bus-destination-webhook.ee';
-import type { MessageEventBusDestination } from './message-event-bus-destination/message-event-bus-destination.ee';
+
+// Event bus destinations are not available in community edition
+type MessageEventBusDestination = any;
+
+// Stub functions for enterprise destination checks
+const isMessageEventBusDestinationSentryOptions = (candidate: unknown): boolean => false;
+const isMessageEventBusDestinationSyslogOptions = (candidate: unknown): boolean => false;
 
 const isWithIdString = (candidate: unknown): candidate is { id: string } => {
 	const o = candidate as { id: string };
@@ -68,45 +65,8 @@ export class EventBusController {
 	@Post('/destination')
 	@GlobalScope('eventBusDestination:create')
 	async postDestination(req: AuthenticatedRequest): Promise<any> {
-		let result: MessageEventBusDestination | undefined;
-		if (isMessageEventBusDestinationOptions(req.body)) {
-			switch (req.body.__type) {
-				case MessageEventBusDestinationTypeNames.sentry:
-					if (isMessageEventBusDestinationSentryOptions(req.body)) {
-						result = await this.eventBus.addDestination(
-							new MessageEventBusDestinationSentry(this.eventBus, req.body),
-						);
-					}
-					break;
-				case MessageEventBusDestinationTypeNames.webhook:
-					if (isMessageEventBusDestinationWebhookOptions(req.body)) {
-						result = await this.eventBus.addDestination(
-							new MessageEventBusDestinationWebhook(this.eventBus, req.body),
-						);
-					}
-					break;
-				case MessageEventBusDestinationTypeNames.syslog:
-					if (isMessageEventBusDestinationSyslogOptions(req.body)) {
-						result = await this.eventBus.addDestination(
-							new MessageEventBusDestinationSyslog(this.eventBus, req.body),
-						);
-					}
-					break;
-				default:
-					throw new BadRequestError(
-						`Body is missing ${req.body.__type} options or type ${req.body.__type} is unknown`,
-					);
-			}
-			if (result) {
-				await result.saveToDb();
-				return {
-					...result.serialize(),
-					eventBusInstance: undefined,
-				};
-			}
-			throw new BadRequestError('There was an error adding the destination');
-		}
-		throw new BadRequestError('Body is not configuring MessageEventBusDestinationOptions');
+		// Event bus destinations are not available in community edition
+		throw new BadRequestError('Event bus destinations are not available in community edition');
 	}
 
 	@Licensed('feat:logStreaming')

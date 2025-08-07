@@ -17,7 +17,9 @@ import { PostHogClient } from '@/posthog';
 import { AuthlessRequest } from '@/requests';
 import { PasswordUtility } from '@/services/password.utility';
 import { UserService } from '@/services/user.service';
-import { isSamlLicensedAndEnabled } from '@/sso.ee/saml/saml-helpers';
+
+// SAML helpers are not available in community edition
+const isSamlLicensedAndEnabled = () => false;
 
 @RestController('/invitations')
 export class InvitationController {

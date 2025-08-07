@@ -2,7 +2,8 @@ import type { AuthenticatedRequest, User, UserRepository } from '@n8n/db';
 import { mock } from 'jest-mock-extended';
 
 import type { EventService } from '@/events/event.service';
-import type { ProjectService } from '@/services/project.service.ee';
+// Project service is not available in community edition
+type ProjectService = any;
 
 import { UsersController } from '../users.controller';
 

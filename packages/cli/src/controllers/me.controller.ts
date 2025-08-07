@@ -21,12 +21,12 @@ import { MfaService } from '@/mfa/mfa.service';
 import { MeRequest } from '@/requests';
 import { PasswordUtility } from '@/services/password.utility';
 import { UserService } from '@/services/user.service';
-import { isSamlLicensedAndEnabled } from '@/sso.ee/saml/saml-helpers';
-import {
-	getCurrentAuthenticationMethod,
-	isLdapCurrentAuthenticationMethod,
-	isOidcCurrentAuthenticationMethod,
-} from '@/sso.ee/sso-helpers';
+
+// SSO helpers are not available in community edition
+const isSamlLicensedAndEnabled = () => false;
+const getCurrentAuthenticationMethod = () => 'email';
+const isLdapCurrentAuthenticationMethod = () => false;
+const isOidcCurrentAuthenticationMethod = () => false;
 
 import { PersonalizationSurveyAnswersV4 } from './survey-answers.dto';
 @RestController('/me')

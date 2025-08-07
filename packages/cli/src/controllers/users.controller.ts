@@ -38,7 +38,12 @@ import { EventService } from '@/events/event.service';
 import { ExternalHooks } from '@/external-hooks';
 import { UserRequest } from '@/requests';
 import { FolderService } from '@/services/folder.service';
-import { ProjectService } from '@/services/project.service.ee';
+
+// Project service is not available in community edition
+class ProjectService {
+	// Add minimal implementation as needed
+}
+
 import { UserService } from '@/services/user.service';
 import { WorkflowService } from '@/workflows/workflow.service';
 import { hasGlobalScope } from '@n8n/permissions';

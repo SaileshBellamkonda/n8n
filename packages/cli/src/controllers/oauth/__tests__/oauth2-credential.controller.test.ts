@@ -15,7 +15,14 @@ import { CREDENTIAL_BLANKING_VALUE } from '@/constants';
 import { OAuth2CredentialController } from '@/controllers/oauth/oauth2-credential.controller';
 import { CredentialsFinderService } from '@/credentials/credentials-finder.service';
 import { CredentialsHelper } from '@/credentials-helper';
-import { VariablesService } from '@/environments.ee/variables/variables.service.ee';
+
+// Variables service is not available in community edition
+class VariablesService {
+	async populateOverrides() {
+		return {};
+	}
+}
+
 import { BadRequestError } from '@/errors/response-errors/bad-request.error';
 import { NotFoundError } from '@/errors/response-errors/not-found.error';
 import { ExternalHooks } from '@/external-hooks';
