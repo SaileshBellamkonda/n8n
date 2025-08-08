@@ -20,10 +20,11 @@ import { PostHogClient } from '@/posthog';
 import { AuthlessRequest } from '@/requests';
 import { UserService } from '@/services/user.service';
 
-// SSO helpers are not available in community edition
-const getCurrentAuthenticationMethod = () => 'email';
-const isLdapCurrentAuthenticationMethod = () => false;
-const isSamlCurrentAuthenticationMethod = () => false;
+import {
+	getCurrentAuthenticationMethod,
+	isLdapCurrentAuthenticationMethod,
+	isSamlCurrentAuthenticationMethod,
+} from '@/sso/sso-helpers';
 
 @RestController()
 export class AuthController {
