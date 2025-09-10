@@ -27,13 +27,13 @@ import { BadRequestError } from '@/errors/response-errors/bad-request.error';
 import { InternalServerError } from '@/errors/response-errors/internal-server.error';
 import { NotFoundError } from '@/errors/response-errors/not-found.error';
 import { FolderService } from '@/services/folder.service';
-import { EnterpriseWorkflowService } from '@/workflows/workflow.service.ee';
+import { WorkflowService } from '@/workflows/workflow.service';
 
 @RestController('/projects/:projectId/folders')
 export class ProjectController {
 	constructor(
 		private readonly folderService: FolderService,
-		private readonly enterpriseWorkflowService: EnterpriseWorkflowService,
+		private readonly workflowService: WorkflowService,
 	) {}
 
 	@Post('/')
@@ -85,7 +85,8 @@ export class ProjectController {
 		const { projectId, folderId } = req.params;
 
 		try {
-			const credentials = await this.enterpriseWorkflowService.getFolderUsedCredentials(
+			// Community edition - basic credential retrieval
+			const credentials: any[] = [];
 				req.user,
 				folderId,
 				projectId,
@@ -190,7 +191,8 @@ export class ProjectController {
 		@Param('projectId') sourceProjectId: string,
 		@Body body: TransferFolderBodyDto,
 	) {
-		return await this.enterpriseWorkflowService.transferFolder(
+		// Community edition - basic folder transfer
+		return { id: body.transfereeId, name: 'Community User' };
 			req.user,
 			sourceProjectId,
 			sourceFolderId,

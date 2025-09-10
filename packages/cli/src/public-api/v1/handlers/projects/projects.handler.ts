@@ -13,7 +13,7 @@ import type { Response } from 'express';
 import { ProjectController } from '@/controllers/project.controller';
 import { ResponseError } from '@/errors/response-errors/abstract/response.error';
 import type { PaginatedRequest } from '@/public-api/types';
-import { ProjectService } from '@/services/project.service.ee';
+import { ProjectService } from '@/services/project.service';
 
 import {
 	apiKeyHasScopeWithGlobalScopeFallback,

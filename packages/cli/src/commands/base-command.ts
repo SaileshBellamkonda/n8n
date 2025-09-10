@@ -27,7 +27,10 @@ import { N8N_VERSION, N8N_RELEASE_DATE } from '@/constants';
 import * as CrashJournal from '@/crash-journal';
 import { getDataDeduplicationService } from '@/deduplication';
 import { DeprecationService } from '@/deprecation/deprecation.service';
-import { TestRunCleanupService } from '@/evaluation.ee/test-runner/test-run-cleanup.service.ee';
+	async cleanupTestRunner() {
+		// Test runner cleanup removed - evaluation system completely removed
+		// No cleanup needed for community edition
+	}
 import { MessageEventBus } from '@/eventbus/message-event-bus/message-event-bus';
 import { TelemetryEventRelay } from '@/events/relays/telemetry.event-relay';
 import { ExternalHooks } from '@/external-hooks';
@@ -275,7 +278,8 @@ export abstract class BaseCommand<F = never> {
 	}
 
 	async cleanupTestRunner() {
-		await Container.get(TestRunCleanupService).cleanupIncompleteRuns();
+		// Test runner cleanup removed - evaluation system completely removed
+		// No cleanup needed for community edition
 	}
 
 	async finally(error: Error | undefined) {

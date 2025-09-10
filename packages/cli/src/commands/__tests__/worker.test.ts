@@ -3,7 +3,7 @@ import { Container } from '@n8n/di';
 
 import { PubSubRegistry } from '@/scaling/pubsub/pubsub.registry';
 import { Subscriber } from '@/scaling/pubsub/subscriber.service';
-import { WorkerStatusService } from '@/scaling/worker-status.service.ee';
+import { WorkerStatusService } from '@/scaling/worker-status.service';
 import { RedisClientService } from '@/services/redis-client.service';
 
 import { Worker } from '../worker';

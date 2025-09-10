@@ -5,7 +5,7 @@ import type express from 'express';
 import { z } from 'zod';
 
 import { CredentialTypes } from '@/credential-types';
-import { EnterpriseCredentialsService } from '@/credentials/credentials.service.ee';
+import { CredentialsService } from '@/credentials/credentials.service';
 import { CredentialsHelper } from '@/credentials-helper';
 
 import { validCredentialsProperties, validCredentialType } from './credentials.middleware';
@@ -53,7 +53,7 @@ export = {
 		async (req: CredentialRequest.Transfer, res: express.Response) => {
 			const body = z.object({ destinationProjectId: z.string() }).parse(req.body);
 
-			await Container.get(EnterpriseCredentialsService).transferOne(
+			await Container.get(CredentialsService).transferOne(
 				req.user,
 				req.params.id,
 				body.destinationProjectId,

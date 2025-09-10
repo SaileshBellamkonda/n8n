@@ -50,7 +50,7 @@ import { listQueryMiddleware } from '@/middlewares';
 import * as ResponseHelper from '@/response-helper';
 import { FolderService } from '@/services/folder.service';
 import { NamingService } from '@/services/naming.service';
-import { ProjectService } from '@/services/project.service.ee';
+import { ProjectService } from '@/services/project.service';
 import { TagService } from '@/services/tag.service';
 import { UserManagementMailer } from '@/user-management/email';
 import * as utils from '@/utils';
@@ -58,10 +58,9 @@ import * as WorkflowHelpers from '@/workflow-helpers';
 
 import { WorkflowExecutionService } from './workflow-execution.service';
 import { WorkflowFinderService } from './workflow-finder.service';
-import { WorkflowHistoryService } from './workflow-history.ee/workflow-history.service.ee';
+import { WorkflowHistoryService } from './workflow-history/workflow-history.service';
 import { WorkflowRequest } from './workflow.request';
 import { WorkflowService } from './workflow.service';
-import { EnterpriseWorkflowService } from './workflow.service.ee';
 import { CredentialsService } from '../credentials/credentials.service';
 
 @RestController('/workflows')
@@ -70,7 +69,6 @@ export class WorkflowsController {
 		private readonly logger: Logger,
 		private readonly externalHooks: ExternalHooks,
 		private readonly tagRepository: TagRepository,
-		private readonly enterpriseWorkflowService: EnterpriseWorkflowService,
 		private readonly workflowHistoryService: WorkflowHistoryService,
 		private readonly tagService: TagService,
 		private readonly namingService: NamingService,
