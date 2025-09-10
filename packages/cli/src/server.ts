@@ -21,7 +21,8 @@ import { MessageEventBus } from '@/eventbus/message-event-bus/message-event-bus'
 import { EventService } from '@/events/event.service';
 import { LogStreamingEventRelay } from '@/events/relays/log-streaming.event-relay';
 import type { ICredentialsOverwrite } from '@/interfaces';
-import { isLdapEnabled } from '@/ldap.ee/helpers.ee';
+// LDAP is not available in community edition
+const isLdapEnabled = () => false;
 import { LoadNodesAndCredentials } from '@/load-nodes-and-credentials';
 import { handleMfaDisable, isMfaFeatureEnabled } from '@/mfa/helpers';
 import { PostHogClient } from '@/posthog';
@@ -31,7 +32,7 @@ import * as ResponseHelper from '@/response-helper';
 import type { FrontendService } from '@/services/frontend.service';
 
 import '@/controllers/active-workflows.controller';
-import '@/controllers/annotation-tags.controller.ee';
+
 import '@/controllers/auth.controller';
 import '@/controllers/binary-data.controller';
 import '@/controllers/ai.controller';
@@ -58,8 +59,7 @@ import '@/eventbus/event-bus.controller';
 import '@/events/events.controller';
 import '@/executions/executions.controller';
 import '@/license/license.controller';
-import '@/evaluation.ee/test-runs.controller.ee';
-import '@/workflows/workflow-history.ee/workflow-history.controller.ee';
+
 import '@/workflows/workflows.controller';
 import '@/webhooks/webhooks.controller';
 
@@ -113,11 +113,7 @@ export class Server extends AbstractServer {
 			await import('@/controllers/debug.controller');
 		}
 
-		if (isLdapEnabled()) {
-			const { LdapService } = await import('@/ldap.ee/ldap.service.ee');
-			await import('@/ldap.ee/ldap.controller.ee');
-			await Container.get(LdapService).init();
-		}
+		// LDAP is not available in community edition
 
 		if (Container.get(CommunityPackagesConfig).enabled) {
 			await import('@/community-packages/community-packages.controller');
@@ -141,58 +137,17 @@ export class Server extends AbstractServer {
 			await import('@/controllers/tags.controller');
 		}
 
-		// ----------------------------------------
-		// SAML
-		// ----------------------------------------
-
-		// initialize SamlService if it is licensed, even if not enabled, to
-		// set up the initial environment
-		try {
-			const { SamlService } = await import('@/sso.ee/saml/saml.service.ee');
-			await Container.get(SamlService).init();
-			await import('@/sso.ee/saml/routes/saml.controller.ee');
-		} catch (error) {
-			this.logger.warn(`SAML initialization failed: ${(error as Error).message}`);
-		}
+		// SAML is not available in community edition
 
 		if (this.globalConfig.diagnostics.enabled) {
 			await import('@/controllers/telemetry.controller');
 		}
 
-		// ----------------------------------------
-		// OIDC
-		// ----------------------------------------
+		// OIDC is not available in community edition
 
-		try {
-			// in the short term, we load the OIDC module here to ensure it is initialized
-			// ideally we want to migrate this to a module and be able to load it dynamically
-			// when the license changes, but that requires some refactoring
-			const { OidcService } = await import('@/sso.ee/oidc/oidc.service.ee');
-			await Container.get(OidcService).init();
-			await import('@/sso.ee/oidc/routes/oidc.controller.ee');
-		} catch (error) {
-			this.logger.warn(`OIDC initialization failed: ${(error as Error).message}`);
-		}
+		// Source Control is not available in community edition
 
-		// ----------------------------------------
-		// Source Control
-		// ----------------------------------------
-
-		try {
-			const { SourceControlService } = await import(
-				'@/environments.ee/source-control/source-control.service.ee'
-			);
-			await Container.get(SourceControlService).init();
-			await import('@/environments.ee/source-control/source-control.controller.ee');
-		} catch (error) {
-			this.logger.warn(`Source control initialization failed: ${(error as Error).message}`);
-		}
-
-		try {
-			await import('@/environments.ee/variables/variables.controller.ee');
-		} catch (error) {
-			this.logger.warn(`Variables initialization failed: ${(error as Error).message}`);
-		}
+		// Environment variables are not available in community edition
 	}
 
 	async configure(): Promise<void> {

@@ -14,7 +14,7 @@ import {
 } from 'n8n-workflow';
 
 import { CredentialsHelper } from '@/credentials-helper';
-import { VariablesService } from '@/environments.ee/variables/variables.service.ee';
+import { VariablesService } from '@/services/variables.service';
 import { ExternalHooks } from '@/external-hooks';
 import type { ManualExecutionService } from '@/manual-execution.service';
 import { WorkflowStatisticsService } from '@/services/workflow-statistics.service';

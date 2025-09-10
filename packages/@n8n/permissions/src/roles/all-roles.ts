@@ -1,37 +1,41 @@
-import {
-	CREDENTIALS_SHARING_SCOPE_MAP,
-	GLOBAL_SCOPE_MAP,
-	PROJECT_SCOPE_MAP,
-	WORKFLOW_SHARING_SCOPE_MAP,
-} from './role-maps.ee';
-import type { AllRolesMap, AllRoleTypes, Scope } from '../types.ee';
-import { getRoleScopes } from '../utilities/get-role-scopes.ee';
+import { GLOBAL_SCOPES, WORKFLOW_SCOPES, CREDENTIAL_SCOPES } from './global-scopes';
+import { getRoleScopes } from '../utilities/get-role-scopes';
+import type { GlobalScope } from '../types';
 
-const ROLE_NAMES: Record<AllRoleTypes, string> = {
+export interface RoleObject {
+	role: string;
+	name: string;
+	scopes: GlobalScope[];
+	licensed: boolean;
+}
+
+export interface AllRolesMap {
+	global: RoleObject[];
+	workflow: RoleObject[];
+	credential: RoleObject[];
+}
+
+const ROLE_NAMES: Record<string, string> = {
 	'global:owner': 'Owner',
 	'global:admin': 'Admin',
 	'global:member': 'Member',
-	'project:personalOwner': 'Project Owner',
-	'project:admin': 'Project Admin',
-	'project:editor': 'Project Editor',
-	'project:viewer': 'Project Viewer',
-	'credential:user': 'Credential User',
-	'credential:owner': 'Credential Owner',
-	'workflow:owner': 'Workflow Owner',
+	'workflow:admin': 'Workflow Admin',
 	'workflow:editor': 'Workflow Editor',
+	'workflow:viewer': 'Workflow Viewer',
+	'credential:owner': 'Credential Owner',
+	'credential:user': 'Credential User',
 };
 
-const mapToRoleObject = <T extends keyof typeof ROLE_NAMES>(roles: Record<T, Scope[]>) =>
-	(Object.keys(roles) as T[]).map((role) => ({
+const mapToRoleObject = (roles: Record<string, GlobalScope[]>): RoleObject[] =>
+	Object.keys(roles).map((role) => ({
 		role,
-		name: ROLE_NAMES[role],
+		name: ROLE_NAMES[role] || role,
 		scopes: getRoleScopes(role),
 		licensed: false,
 	}));
 
 export const ALL_ROLES: AllRolesMap = {
-	global: mapToRoleObject(GLOBAL_SCOPE_MAP),
-	project: mapToRoleObject(PROJECT_SCOPE_MAP),
-	credential: mapToRoleObject(CREDENTIALS_SHARING_SCOPE_MAP),
-	workflow: mapToRoleObject(WORKFLOW_SHARING_SCOPE_MAP),
+	global: mapToRoleObject(GLOBAL_SCOPES),
+	workflow: mapToRoleObject(WORKFLOW_SCOPES),
+	credential: mapToRoleObject(CREDENTIAL_SCOPES),
 };

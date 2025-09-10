@@ -39,7 +39,8 @@ import { EventMessageRunner } from '../event-message-classes/event-message-runne
 import type { EventMessageWorkflowOptions } from '../event-message-classes/event-message-workflow';
 import { EventMessageWorkflow } from '../event-message-classes/event-message-workflow';
 import { messageEventBusDestinationFromDb } from '../message-event-bus-destination/message-event-bus-destination-from-db';
-import type { MessageEventBusDestination } from '../message-event-bus-destination/message-event-bus-destination.ee';
+// Event bus destinations are not available in community edition
+type MessageEventBusDestination = any;
 import { MessageEventBusLogWriter } from '../message-event-bus-writer/message-event-bus-log-writer';
 
 export type EventMessageReturnMode = 'sent' | 'unsent' | 'all' | 'unfinished';

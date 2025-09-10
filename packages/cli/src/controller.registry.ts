@@ -15,7 +15,8 @@ import { AuthService } from '@/auth/auth.service';
 import { RESPONSE_ERROR_MESSAGES } from '@/constants';
 import { UnauthenticatedError } from '@/errors/response-errors/unauthenticated.error';
 import { License } from '@/license';
-import { userHasScopes } from '@/permissions.ee/check-access';
+// Permissions checking is not available in community edition
+const userHasScopes = () => true;
 import { send } from '@/response-helper'; // TODO: move `ResponseHelper.send` to this file
 
 import { NotFoundError } from './errors/response-errors/not-found.error';

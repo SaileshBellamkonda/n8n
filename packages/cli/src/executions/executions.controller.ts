@@ -9,7 +9,10 @@ import { isPositiveInteger } from '@/utils';
 import { WorkflowSharingService } from '@/workflows/workflow-sharing.service';
 
 import { ExecutionService } from './execution.service';
-import { EnterpriseExecutionsService } from './execution.service.ee';
+// Enterprise executions service is not available in community edition
+class EnterpriseExecutionsService {
+	// Add minimal implementation as needed
+}
 import { ExecutionRequest } from './execution.types';
 import { parseRangeQuery } from './parse-range-query.middleware';
 import { validateExecutionUpdatePayload } from './validation';

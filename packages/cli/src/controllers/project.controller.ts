@@ -24,11 +24,20 @@ import { BadRequestError } from '@/errors/response-errors/bad-request.error';
 import { NotFoundError } from '@/errors/response-errors/not-found.error';
 import { EventService } from '@/events/event.service';
 import type { ProjectRequest } from '@/requests';
-import {
-	ProjectService,
-	TeamProjectOverQuotaError,
-	UnlicensedProjectRoleError,
-} from '@/services/project.service.ee';
+import { ProjectService } from '@/services/project.service';
+
+// Community edition errors
+export class TeamProjectOverQuotaError extends Error {
+	constructor() {
+		super('Team project quota exceeded');
+	}
+}
+
+export class UnlicensedProjectRoleError extends Error {
+	constructor() {
+		super('Project role requires enterprise license');
+	}
+}
 import { UserManagementMailer } from '@/user-management/email';
 
 @RestController('/projects')

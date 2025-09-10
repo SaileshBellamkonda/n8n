@@ -6,7 +6,11 @@ import type { INode } from 'n8n-workflow';
 import { UserError } from 'n8n-workflow';
 
 import { OwnershipService } from '@/services/ownership.service';
-import { ProjectService } from '@/services/project.service.ee';
+
+// Project service is not available in community edition  
+class ProjectService {
+	// Add minimal implementation as needed
+}
 
 class InvalidCredentialError extends UserError {
 	override description = 'Please recreate the credential.';

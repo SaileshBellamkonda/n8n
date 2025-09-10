@@ -19,11 +19,12 @@ import { MfaService } from '@/mfa/mfa.service';
 import { PostHogClient } from '@/posthog';
 import { AuthlessRequest } from '@/requests';
 import { UserService } from '@/services/user.service';
+
 import {
 	getCurrentAuthenticationMethod,
 	isLdapCurrentAuthenticationMethod,
 	isSamlCurrentAuthenticationMethod,
-} from '@/sso.ee/sso-helpers';
+} from '@/sso/sso-helpers';
 
 @RestController()
 export class AuthController {
@@ -69,14 +70,8 @@ export class AuthController {
 				throw new AuthError('SSO is enabled, please log in with SSO');
 			}
 		} else if (isLdapCurrentAuthenticationMethod()) {
-			const preliminaryUser = await handleEmailLogin(emailOrLdapLoginId, password);
-			if (preliminaryUser?.role === 'global:owner') {
-				user = preliminaryUser;
-				usedAuthenticationMethod = 'email';
-			} else {
-				const { LdapService } = await import('@/ldap.ee/ldap.service.ee');
-				user = await Container.get(LdapService).handleLdapLogin(emailOrLdapLoginId, password);
-			}
+			// LDAP is not available in community edition - fallback to email
+			user = await handleEmailLogin(emailOrLdapLoginId, password);
 		} else {
 			user = await handleEmailLogin(emailOrLdapLoginId, password);
 		}

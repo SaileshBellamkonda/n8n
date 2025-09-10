@@ -9,7 +9,7 @@ import type {
 } from 'n8n-workflow';
 import { v4 as uuid } from 'uuid';
 
-import { VariablesService } from '@/environments.ee/variables/variables.service.ee';
+import { VariablesService } from '@/services/variables.service';
 
 /**
  * Returns the data of the last executed node

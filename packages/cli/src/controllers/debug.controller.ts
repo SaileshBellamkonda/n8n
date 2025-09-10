@@ -3,7 +3,16 @@ import { Get, RestController } from '@n8n/decorators';
 import { InstanceSettings } from 'n8n-core';
 
 import { ActiveWorkflowManager } from '@/active-workflow-manager';
-import { MultiMainSetup } from '@/scaling/multi-main-setup.ee';
+
+// Multi-main setup is not available in community edition
+class MultiMainSetup {
+	async fetchLeaderKey() {
+		return null;
+	}
+	async isLeader() {
+		return true;
+	}
+}
 
 @RestController('/debug')
 export class DebugController {

@@ -6,7 +6,8 @@ import type { IRun, IWorkflowBase } from 'n8n-workflow';
 import { createDeferredPromise } from 'n8n-workflow';
 
 import type { ActiveExecutions } from '@/active-executions';
-import type { MultiMainSetup } from '@/scaling/multi-main-setup.ee';
+// Multi-main setup is not available in community edition  
+type MultiMainSetup = any;
 import type { OwnershipService } from '@/services/ownership.service';
 import { WaitTracker } from '@/wait-tracker';
 import type { WorkflowRunner } from '@/workflow-runner';

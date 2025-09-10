@@ -47,7 +47,7 @@ Need help? Our community forum is the place to get support and connect with othe
 
 ## License
 
-n8n is [fair-code](https://faircode.io) distributed under the [Sustainable Use License](https://github.com/n8n-io/n8n/blob/master/LICENSE.md) and [n8n Enterprise License](https://github.com/n8n-io/n8n/blob/master/LICENSE_EE.md).
+n8n is [fair-code](https://faircode.io) distributed under the [Sustainable Use License](https://github.com/n8n-io/n8n/blob/master/LICENSE.md).
 
 - **Source Available**: Always visible source code
 - **Self-Hostable**: Deploy anywhere

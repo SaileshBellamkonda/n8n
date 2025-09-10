@@ -8,8 +8,8 @@ import {
 	getTrackingInformationFromPullResult,
 	isSourceControlLicensed,
 } from '@/environments.ee/source-control/source-control-helper.ee';
-import { SourceControlPreferencesService } from '@/environments.ee/source-control/source-control-preferences.service.ee';
-import { SourceControlService } from '@/environments.ee/source-control/source-control.service.ee';
+import { SourceControlPreferencesService } from '@/services/source-control-preferences.service';
+import { SourceControlService } from '@/services/source-control.service';
 import type { ImportResult } from '@/environments.ee/source-control/types/import-result';
 import { EventService } from '@/events/event.service';
 

@@ -3,7 +3,9 @@ import { mock } from 'jest-mock-extended';
 import type { INode } from 'n8n-workflow';
 
 import type { OwnershipService } from '@/services/ownership.service';
-import type { ProjectService } from '@/services/project.service.ee';
+
+// Project service is not available in community edition
+type ProjectService = any;
 
 import { CredentialsPermissionChecker } from '../credentials-permission-checker';
 

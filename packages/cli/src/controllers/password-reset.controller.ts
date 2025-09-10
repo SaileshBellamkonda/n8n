@@ -23,10 +23,11 @@ import { MfaService } from '@/mfa/mfa.service';
 import { AuthlessRequest } from '@/requests';
 import { PasswordUtility } from '@/services/password.utility';
 import { UserService } from '@/services/user.service';
-import {
-	isOidcCurrentAuthenticationMethod,
-	isSamlCurrentAuthenticationMethod,
-} from '@/sso.ee/sso-helpers';
+
+// SSO helpers are not available in community edition
+const isOidcCurrentAuthenticationMethod = () => false;
+const isSamlCurrentAuthenticationMethod = () => false;
+
 import { UserManagementMailer } from '@/user-management/email';
 
 @RestController()

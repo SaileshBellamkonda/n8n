@@ -11,7 +11,10 @@ import * as auth from '@/auth';
 import { AuthService } from '@/auth/auth.service';
 import config from '@/config';
 import { EventService } from '@/events/event.service';
-import { LdapService } from '@/ldap.ee/ldap.service.ee';
+// LDAP service is not available in community edition  
+class LdapService {
+	// Add minimal implementation as needed
+}
 import { License } from '@/license';
 import { MfaService } from '@/mfa/mfa.service';
 import { PostHogClient } from '@/posthog';

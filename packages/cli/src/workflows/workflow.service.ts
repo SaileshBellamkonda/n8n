@@ -34,13 +34,13 @@ import type { ListQuery } from '@/requests';
 import { hasSharing } from '@/requests';
 import { OwnershipService } from '@/services/ownership.service';
 // eslint-disable-next-line import-x/no-cycle
-import { ProjectService } from '@/services/project.service.ee';
+import { ProjectService } from '@/services/project.service';
 import { RoleService } from '@/services/role.service';
 import { TagService } from '@/services/tag.service';
 import * as WorkflowHelpers from '@/workflow-helpers';
 
 import { WorkflowFinderService } from './workflow-finder.service';
-import { WorkflowHistoryService } from './workflow-history.ee/workflow-history.service.ee';
+import { WorkflowHistoryService } from './workflow-history/workflow-history.service';
 import { WorkflowSharingService } from './workflow-sharing.service';
 
 @Service()
